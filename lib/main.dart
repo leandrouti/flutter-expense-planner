@@ -1,64 +1,99 @@
 import 'package:flutter/material.dart';
+import './transaction.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Flutter App',
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class MyHomePage extends StatelessWidget {
+  final List<Transaction> transactions = [
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Flutter App'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Card(
+            color: Colors.blue,
+            elevation: 5,
+            child: Text('CHART!'),
+          ),
+          Column(
+            children: this.transactions.map((tx) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.purple,
+                          width: 2,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        '\$${tx.amount}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          tx.date.toString(),
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }
