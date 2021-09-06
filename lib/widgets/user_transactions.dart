@@ -44,9 +44,7 @@ class _UserTransactionsState extends State<UserTransactions> {
     return Column(
       children: <Widget>[
         NewTransaction(this._addNewTransaction),
-        TransactionList(
-          userTransaction: this._userTransactions,
-        ),
+        TransactionList(this._userTransactions),
       ],
     );
   }
