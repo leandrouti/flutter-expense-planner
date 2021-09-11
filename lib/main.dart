@@ -44,8 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now(),
     );
 
-    print('salkjdflkasjdlfka');
-
     setState(() {
       _userTransactions.add(newTx);
     });
