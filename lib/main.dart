@@ -31,6 +31,13 @@ class MyApp extends StatelessWidget {
                 ),
               ),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            textStyle: TextStyle(
+              fontFamily: 'OpenSans',
+            ),
+          ),
+        ),
       ),
     );
   }
