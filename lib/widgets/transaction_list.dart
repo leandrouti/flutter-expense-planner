@@ -34,6 +34,7 @@ class TransactionList extends StatelessWidget {
         : ListView(
             children: transactions
                 .map((tx) => TransactionItem(
+                      key: ValueKey(tx.id),
                       deleteTx: this.deleteTransactionHandler,
                       transaction: tx,
                     ))
