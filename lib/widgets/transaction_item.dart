@@ -2,7 +2,7 @@ import 'package:expense_planner/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TransactionItem extends StatelessWidget {
+class TransactionItem extends StatefulWidget {
   final Transaction transaction;
   final Function deleteTx;
 
@@ -12,6 +12,11 @@ class TransactionItem extends StatelessWidget {
     required this.deleteTx,
   }) : super(key: key);
 
+  @override
+  State<TransactionItem> createState() => _TransactionItemState();
+}
+
+class _TransactionItemState extends State<TransactionItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,17 +31,17 @@ class TransactionItem extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(6.0),
             child: FittedBox(
-              child: Text('\$${transaction.amount}'),
+              child: Text('\$${widget.transaction.amount}'),
             ),
           ),
         ),
         title: Text(
-          transaction.title,
+          widget.transaction.title,
           style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
           DateFormat.yMMMd().format(
-            transaction.date,
+            widget.transaction.date,
           ),
         ),
         trailing: MediaQuery.of(context).size.width > 360
@@ -48,14 +53,14 @@ class TransactionItem extends StatelessWidget {
                 style: TextButton.styleFrom(
                   primary: Theme.of(context).errorColor,
                 ),
-                onPressed: () => deleteTx(transaction.id),
+                onPressed: () => widget.deleteTx(widget.transaction.id),
               )
             : IconButton(
                 icon: Icon(
                   Icons.delete,
                   color: Theme.of(context).errorColor,
                 ),
-                onPressed: () => deleteTx(transaction.id),
+                onPressed: () => widget.deleteTx(widget.transaction.id),
               ),
       ),
     );
